@@ -11,31 +11,38 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="parent" />
 
-        inflateLayout(R.layout.firtView, this, "tag1")
+       class MainActivity , ViewStubCompat.OnInflateListener {
 
-          @SuppressLint("RestrictedApi")
-         fun inflateLayout(@LayoutRes res: Int, listener: ViewStubCompat.OnInflateListener?, tag: String) {
+
+    fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
+        super.onCreate(savedInstanceState, persistentState)
+
+        inflateLayout(R.layout.firtView, this, "tag1")
+        
+    }
+
+
+    @SuppressLint("RestrictedApi")
+    fun inflateLayout(@LayoutRes res: Int, listener: ViewStubCompat.OnInflateListener?, tag: String) {
 
         if (listener != null) {
             binding.uiStub.setOnInflateListener(listener)
         }
         binding.uiStub.layoutResource = res
-        
-         binding.uiStub.tag = tag
+
+        binding.uiStub.tag = tag
         binding.uiStub.inflate()
-       }
-       
-       class MainActivity , ViewStubCompat.OnInflateListener {
+    }
 
 
-             override fun onInflate(stub: ViewStubCompat, inflated: View) {
+    override fun onInflate(stub: ViewStubCompat, inflated: View) {
 
         when (inflated.tag) {
-            FIRST_SCREEN -> { 
+            FIRST_SCREEN -> {
                 updateFirstScreenView(inflated)
             }
-       
-        }//CHECK FOR TAG
-        }
 
-       }
+        }//CHECK FOR TAG
+    }
+
+}
